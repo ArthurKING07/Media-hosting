@@ -1,0 +1,421 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+    background: linear-gradient(135deg, #ffffff, #ffcee6);
+}
+
+.background-shimmer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ffffff, #ffcee6);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    z-index: -2;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    position: relative;
+}
+
+.content {
+    display: flex;
+    flex-wrap: wrap; /* Позволяет элементам переноситься на новую строку */
+    justify-content: space-between;
+    align-items: center;
+}
+
+.video-container {
+    flex: 1; /* Пусть занимает всю доступную ширину */
+    max-width: 50%; /* Ограничиваем ширину на больших экранах */
+}
+
+.message {
+    flex: 1;
+    max-width: 45%; /* Чтобы текст и видео были сбалансированы */
+}
+
+
+@media (min-width: 768px) {
+    .content {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+}
+
+.video-container {
+    width: 100%;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.content {
+    display: flex;
+    flex-wrap: wrap; /* Позволяет переносить элементы */
+    justify-content: space-between;
+    align-items: center;
+}
+
+.video-container {
+    flex: 1;
+    max-width: 50%;
+}
+
+.message {
+    flex: 1;
+    max-width: 45%;
+}
+
+/* Адаптация для телефонов */
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column; /* В колонку на узких экранах */
+        align-items: center;
+    }
+
+    .video-container, 
+    .message {
+        max-width: 100%; /* Элементы занимают всю ширину */
+    }
+}
+
+
+@media (min-width: 768px) {
+    .video-container {
+        width: 48%;
+        margin-bottom: 0;
+    }
+}
+
+.video-placeholder {
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.video-placeholder::after {
+    content: "toji-video.mp4";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ff69b4;
+    font-size: 1.2rem;
+}
+
+.message {
+    width: 100%;
+    padding: 30px;
+    text-align: center;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    margin-bottom: 30px;
+}
+
+@media (min-width: 768px) {
+    .message {
+        width: 48%;
+        text-align: right;
+    }
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #ff69b4;
+    margin-bottom: 20px;
+    font-weight: 400;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+    letter-spacing: 1px;
+}
+
+p {
+    font-size: 1.2rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    font-weight: 400;
+}
+
+.photo-section {
+    width: 100%;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.photo-placeholder {
+    width: 100%;
+    max-width: 500px;
+    height: 300px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ff69b4;
+    font-size: 1.2rem;
+}
+
+.petal {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: #ffcee6;
+    border-radius: 150% 0 150% 0;
+    animation: falling linear forwards;
+    z-index: -1;
+    opacity: 0.8;
+}
+
+.music-controls {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 10px;
+    border-radius: 50px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.music-controls button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #ff69b4;
+    transition: all 0.3s ease;
+}
+
+.music-controls button:hover {
+    transform: scale(1.1);
+}
+
+.music-info {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Easter Egg Styles */
+.easter-egg {
+    position: fixed;
+    bottom: -150px;
+    right: -100px;
+    width: 150px;
+    height: 150px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%23333"/><circle cx="35" cy="40" r="5" fill="white"/><circle cx="65" cy="40" r="5" fill="white"/><path d="M 40 60 Q 50 70 60 60" stroke="white" fill="none" stroke-width="2"/></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    z-index: 10;
+}
+
+.easter-egg:hover {
+    opacity: 0.8 !important;
+    bottom: 10px !important;
+    right: 10px !important;
+}
+
+/* Java Code Challenge Styles */
+.code-challenge {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.code-editor {
+    width: 100%;
+    max-width: 800px;
+    background-color: #1e1e1e;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.code-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #555;
+}
+
+.code-title {
+    color: #ddd;
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+.syntax-java {
+    color: #569cd6;
+}
+
+.syntax-keyword {
+    color: #569cd6;
+}
+
+.syntax-type {
+    color: #4ec9b0;
+}
+
+.syntax-string {
+    color: #ce9178;
+}
+
+.syntax-comment {
+    color: #6a9955;
+}
+
+.syntax-method {
+    color: #dcdcaa;
+}
+
+.code-content {
+    margin-bottom: 20px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+}
+
+.code-input {
+    width: 100%;
+    margin-top: 20px;
+    background-color: #2d2d2d;
+    border: 1px solid #555;
+    color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    resize: vertical;
+    min-height: 100px;
+}
+
+.code-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.code-button {
+    padding: 10px 20px;
+    background-color: #0078d7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.code-button:hover {
+    background-color: #2b8bd6;
+}
+
+.code-hint {
+    background-color: #2d2d2d;
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 15px;
+    border-left: 4px solid #569cd6;
+    display: none;
+}
+
+.output-console {
+    width: 100%;
+    background-color: #2d2d2d;
+    color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 15px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    min-height: 50px;
+    border: 1px solid #555;
+}
+
+/* Animations */
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes falling {
+    0% {
+        transform: translateY(-20px) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -100% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+@keyframes celebrate {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
